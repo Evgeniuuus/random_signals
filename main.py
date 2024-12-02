@@ -12,6 +12,8 @@ plt.legend()
 plt.grid()
 plt.show()
 
+# -------------------------------Задание №1-----------------------------------------
+
 print("Дисперсия: 0.25")
 print("Дисперсия фактически: ", float(d))
 print("Погрешность составила: ", abs(float(d) - 0.25))
@@ -24,7 +26,7 @@ plt.plot(y[:16], Rxx(noise))
 corr_noise = [0 for i in range(0, len(noise))]
 corr_noise[0] = d
 
-plt.plot(y[:16], corr_noise[:16])
+plt.plot(y[:16], corr_noise[:16], color="red")
 plt.legend(["Корреляционная ф. Rxx", "Корреляционная ф. белого шума"])
 plt.grid()
 plt.show()
@@ -32,6 +34,7 @@ plt.show()
 function = [0 for i in range(501)]
 function[0] = noise[0]
 
+# -------------------------------Задание №2-----------------------------------------
 # y(k)=0.8y(k-1)+x(k)k = 0,500
 
 y[0] = 0
@@ -40,17 +43,9 @@ for i in range(1, len(noise)):
 
 d = numpy.var(y)
 m = numpy.mean(y)
-
-print("Дисперсия: ", 0.25 / 0.36)
-print("Дисперсия фактически: ", float(d))
-print("Погрешность составила: ", abs(float(d) - 0.25 / 0.36))
-print("Мат. ожидание: 0")
-print("Мат. ожидание фактически: ", float(m))
-print("Погрешность составила: ", float(m))
-
 x = [i for i in range(len(noise))]
 
-plt.plot(x, y)
+plt.plot(x, y, color="green")
 plt.legend(["y(k)=0.8y(k-1)+x(k)k = 0,500"])
 plt.grid()
 plt.show()
@@ -65,3 +60,17 @@ plt.plot(x[:16], Rxy(noise, y))
 plt.legend(["Корреляционная ф. Rxy"])
 plt.grid()
 plt.show()
+
+print("Дисперсия: ", 0.25 / 0.36)
+print("Дисперсия фактически: ", float(d))
+print("Погрешность составила: ", abs(float(d) - 0.25 / 0.36))
+print("Мат. ожидание: 0")
+print("Мат. ожидание фактически: ", float(m))
+print("Погрешность составила: ", float(m))
+
+i = 0
+while True:
+    if abs(Rxy(noise, y)[i]) < 0.05:
+        break
+    i += 1
+print("\nИнтервал корреляции = ", i)
